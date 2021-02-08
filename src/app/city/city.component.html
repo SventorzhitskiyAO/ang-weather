@@ -8,7 +8,7 @@
     </select>
   </label>
 </form>
-<ng-container *ngIf="weatherData$ | async | async as weatherData">
+<ng-container *ngIf="weatherData">
   <div *ngFor="let day of weatherData.days; let i = index">
   <span>
     {{day}}:
