@@ -1,0 +1,10 @@
+<section>
+  <h2>All Users</h2>
+  <a *ngFor="let user of users" class="user" [routerLink]="user._id">
+    <span class="user__prop">Name: {{user._id}}</span>
+    <span class="user__prop">Name: {{user.name}}</span>
+    <span class="user__prop">Login: {{user.login}}</span>
+    <span class="user__prop">Role: {{user.role}}</span>
+    <span class="user__prop">Password(bcrypt): {{user.password}}</span>
+  </a>
+</section>

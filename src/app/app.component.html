@@ -1,2 +1,8 @@
-<h1>Angular Weather</h1>
-<app-city-container></app-city-container>
+<h1>Angular App</h1>
+<nav>
+  <a routerLink="/weather" routerLinkActive="active"
+     [routerLinkActiveOptions]="{exact:true}">Weather</a>
+  <a routerLink="/users" routerLinkActive="active">Users</a>
+  <a routerLink="/create-user" routerLinkActive="active">Create Users</a>
+</nav>
+<router-outlet></router-outlet>
