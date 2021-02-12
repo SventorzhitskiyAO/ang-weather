@@ -7,8 +7,8 @@ import {UsersService} from '../users.service';
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.scss']
 })
-export class CreateUserComponent implements OnInit, OnDestroy{
-
+export class CreateUserComponent {
+  value = 'Clear me';
   myForm: FormGroup;
   constructor(private usersService: UsersService){
     this.myForm = new FormGroup({
@@ -32,9 +32,6 @@ export class CreateUserComponent implements OnInit, OnDestroy{
     });
   }
 
-  ngOnInit(): void {
-  }
-
   submit(): void{
     this.usersService.create(this.myForm.value).subscribe();
     return alert('User registered');
@@ -45,8 +42,5 @@ export class CreateUserComponent implements OnInit, OnDestroy{
       return {userName: true};
     }
     return null;
-  }
-
-  ngOnDestroy(): void {
   }
 }

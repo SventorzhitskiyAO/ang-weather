@@ -1,9 +1,5 @@
-input.ng-touched.ng-invalid {
-  border: solid red 2px;
-}
-
-input.ng-touched.ng-valid {
-  border: solid green 2px;
+.example-form-field {
+  width: 200px;
 }
 
 /*# sourceMappingURL=create-user.component.css.map */

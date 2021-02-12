@@ -24,10 +24,7 @@ export class UsersService {
   getOneUser(id: number): Observable<any> {
     return this.http.get(`${this.url}/users/${id}`, {
       headers: this.headers
-    })
-      .pipe(
-        map((response) => response)
-      );
+    });
   }
 
   create(body): Observable<any> {

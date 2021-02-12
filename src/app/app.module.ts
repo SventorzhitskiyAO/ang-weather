@@ -4,6 +4,14 @@ import { HttpClientModule } from '@angular/common/http';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
+
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+
+
+
 import { AppComponent } from './app.component';
 import { CityComponent } from './city/city.component';
 import {WeatherService} from './weather.service';
@@ -17,6 +25,7 @@ import {LoginComponent} from './login/login.component';
 import {appRoutes} from './routes/users.routes';
 import {UserContainerComponent} from './user/user.container';
 import {LoginContainerComponent} from './login/login.container.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -36,7 +45,12 @@ import {LoginContainerComponent} from './login/login.container.component';
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [
     WeatherService,

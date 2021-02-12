@@ -7,7 +7,7 @@ import {UsersService} from '../users.service';
 
 @Component({
   selector: 'app-user-container',
-  template: `<app-user [user]="user$ | async" (submitUpdate)="change($event)" (submitDelete)="delete()"></app-user>`,
+  template: `<app-user *ngIf="user$ | async as user" [user]="user" (submitUpdate)="change($event)" (submitDelete)="delete()"></app-user>`,
 })
 export class UserContainerComponent implements OnInit{
   id: number;

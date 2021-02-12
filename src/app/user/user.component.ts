@@ -10,7 +10,7 @@ import {UserInterface} from '../interfaces/user.interface';
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.scss']
 })
-export class UserComponent {
+export class UserComponent implements OnInit{
   @Input()
   user: UserInterface;
 
@@ -20,16 +20,15 @@ export class UserComponent {
   @Output()
   submitDelete: EventEmitter<UserInterface> = new EventEmitter<UserInterface>();
 
-
   myForm: FormGroup;
-  constructor(){
+
+  ngOnInit(): void {
     this.myForm = new FormGroup({
-      name: new FormControl(''),
+      name: new FormControl(this.user.name),
       login: new FormControl(''),
       password: new FormControl('', Validators.pattern('[a-zA-Z0-9]{3,30}')),
       passwordConfirm: new FormControl('', Validators.pattern('[a-zA-Z0-9]{3,30}'))
     });
-
   }
 
   submit(): void{
