@@ -1,17 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {UserInterface} from '../interfaces/user.interface';
+import {UserInterface} from '../../interfaces/user.interface';
 import {UsersService} from '../users.service';
 
 @Component({
   selector: 'app-user-container',
   template: `<app-user *ngIf="user$ | async as user" [user]="user" (submitUpdate)="change($event)" (submitDelete)="delete()"></app-user>`,
 })
-export class UserContainerComponent implements OnInit{
+export class UserContainerComponent implements OnInit, OnDestroy{
   id: number;
   private subscription: Subscription;
+  private deleteSubscription: Subscription;
   user$: Observable<UserInterface>;
 
   constructor(
@@ -38,5 +39,16 @@ export class UserContainerComponent implements OnInit{
   delete(): void {
     this.usersService.delete(this.id).subscribe();
     this.router.navigate(['']).then(r => r);
+  }
+
+  ngOnDestroy(): void {
+    if (!!this.subscription) {
+      this.subscription.unsubscribe();
     }
+
+    if (!!this.deleteSubscription) {
+      this.deleteSubscription.unsubscribe();
+    }
+  }
 }
+

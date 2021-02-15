@@ -1,9 +1,6 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UsersService} from '../users.service';
-import {ActivatedRoute} from '@angular/router';
-import {Observable, Subscription} from 'rxjs';
-import {UserInterface} from '../interfaces/user.interface';
+import {UserInterface} from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-user',
@@ -25,7 +22,7 @@ export class UserComponent implements OnInit{
   ngOnInit(): void {
     this.myForm = new FormGroup({
       name: new FormControl(this.user.name),
-      login: new FormControl(''),
+      login: new FormControl(this.user.login),
       password: new FormControl('', Validators.pattern('[a-zA-Z0-9]{3,30}')),
       passwordConfirm: new FormControl('', Validators.pattern('[a-zA-Z0-9]{3,30}'))
     });

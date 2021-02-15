@@ -1,0 +1,19 @@
+.user {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 25px;
+  margin: 5px 0;
+  transition: all ease 0.3s;
+}
+.user__prop {
+  width: 40%;
+}
+.user:hover {
+  color: #d95fd9;
+}
+.user__title {
+  padding: 25px;
+}
+
+/*# sourceMappingURL=users.component.css.map */

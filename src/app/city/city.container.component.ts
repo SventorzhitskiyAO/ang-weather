@@ -7,9 +7,11 @@ import {Weather} from '../interfaces/weather.interface';
 
 @Component({
   selector: 'app-city-container',
-  template: `<app-city [cities]="cities$ | async" [weatherData]="weather$ | async"
+  template: `
+    <app-city [cities]="cities$ | async" [weatherData]="weather$ | async"
     (cityChanged)="onCityChanged($event)"
-  ></app-city>`,
+  ></app-city>
+  `,
 })
 export class CityContainerComponent {
 

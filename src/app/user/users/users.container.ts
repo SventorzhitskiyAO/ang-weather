@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {UserInterface} from '../interfaces/user.interface';
+import {UserInterface} from '../../interfaces/user.interface';
 import {UsersService} from '../users.service';
 
 @Component({
@@ -15,3 +15,4 @@ export class UsersContainerComponent {
 
   users$: Observable<UserInterface[]> = this.usersService.getUsers();
 }
+

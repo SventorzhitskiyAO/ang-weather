@@ -1,6 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {UsersService} from '../users.service';
-import {UserInterface} from '../interfaces/user.interface';
+import {Component, Input} from '@angular/core';
+import {UserInterface} from '../../interfaces/user.interface';
 
 @Component({
   selector: 'app-users',

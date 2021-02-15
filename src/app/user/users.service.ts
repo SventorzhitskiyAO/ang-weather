@@ -48,4 +48,8 @@ export class UsersService {
   login(body): Observable<any> {
     return this.http.post(`${this.url}/users/login`, body);
   }
+
+  getBoolLogin(l): Observable<any> {
+    return this.http.post(`${this.url}/users/userName`, {login: l});
+  }
 }

@@ -1,9 +1,22 @@
-.a {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
+.active {
+  color: #d95fd9;
 }
 
-.active {
-  color:red;
+.menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  &__link {
+    padding: 15px;
+    font-weight: lighter;
+    transition: all ease .3s;
+
+    &:hover {
+      color: #d95fd9;
+    }
+  }
+
+  &__container {
+
+  }
 }

@@ -1,11 +1,19 @@
 <div>
-  <mat-toolbar>
+  <mat-toolbar class="menu__container">
     <h1>Angular App</h1>
-    <nav>
-      <a routerLink="/weather" routerLinkActive="active"
-         [routerLinkActiveOptions]="{exact:true}">Weather</a>
-      <a routerLink="/users" routerLinkActive="active">Users</a>
-      <a routerLink="/create-user" routerLinkActive="active">Create Users</a>
+    <nav class="menu">
+      <div>
+        <a class="menu__link" routerLink="/weather" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          Weather
+        </a>
+        <a class="menu__link" routerLink="/users" routerLinkActive="active">Users</a>
+      </div>
+      <div>
+        <a class="menu__link" routerLink="/users/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          Log In
+        </a>
+        <a class="menu__link" routerLink="users/create" routerLinkActive="active">Sig Up</a>
+      </div>
     </nav>
   </mat-toolbar>
 </div>

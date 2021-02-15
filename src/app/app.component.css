@@ -1,11 +1,19 @@
-.a {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
+.active {
+  color: #d95fd9;
 }
 
-.active {
-  color: red;
+.menu {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.menu__link {
+  padding: 15px;
+  font-weight: lighter;
+  transition: all ease 0.3s;
+}
+.menu__link:hover {
+  color: #d95fd9;
 }
 
 /*# sourceMappingURL=app.component.css.map */

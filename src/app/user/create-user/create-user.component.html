@@ -1,0 +1,53 @@
+<form [formGroup]="myForm" novalidate (ngSubmit)="submit()" class="user__create-users">
+  <div class="form-group">
+    <mat-form-field appearance="legacy">
+      <mat-label>Enter your name</mat-label>
+      <label>
+        <input matInput placeholder="Name" autocomplete="off" class="form-control" name="name" formControlName="name">
+      </label>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="legacy">
+      <mat-label>Enter your login</mat-label>
+      <label>
+        <input matInput placeholder="Login" autocomplete="off" class="form-control" name="login"
+               formControlName="login">
+      </label>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="legacy">
+      <mat-label>Enter your role</mat-label>
+      <label>
+        <input matInput placeholder="Role" autocomplete="off" class="form-control" name="role" formControlName="role">
+      </label>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="legacy">
+      <mat-label>Enter your password</mat-label>
+      <input matInput placeholder="Password" autocomplete="off" class="form-control" name="password"
+             formControlName="password" [type]="hide ? 'password' : 'text'">
+      <span mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide" class="button_hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </span>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <mat-form-field appearance="legacy">
+      <mat-label>Password confirm</mat-label>
+      <input matInput placeholder="PasswordConfirm" autocomplete="off" class="form-control" name="passwordConfirm"
+             formControlName="passwordConfirm" [type]="hide ? 'password' : 'text'">
+      <span mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide" class="button_hide">
+          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </span>
+    </mat-form-field>
+  </div>
+  <div class="form-group">
+    <button mat-button [disabled]="myForm.invalid">Register</button>
+  </div>
+</form>
+

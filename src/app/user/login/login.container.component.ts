@@ -1,16 +1,16 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-
-// import {UserInterface} from '../interfaces/user.interface';
 import {UsersService} from '../users.service';
 import {map} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-login-container',
   template: `<app-login (submitLog)="login($event)"></app-login>`,
 })
-export class LoginContainerComponent {
+export class LoginContainerComponent implements OnInit, OnDestroy{
   id: number;
+  private subscription: Subscription;
 
   constructor(
     private usersService: UsersService,
@@ -19,12 +19,23 @@ export class LoginContainerComponent {
   ) {}
 
   login(body): void{
-    this.usersService.login(body)
+    this.subscription = this.usersService.login(body)
       .pipe(
         map((data) => {
           localStorage.setItem('token',  data.token);
-          this.router.navigate([`users/${data.user._id}`]).then();
+          this.id = data.user._id;
         })
       ).subscribe();
+    this.router.navigate([`users/${this.id}`]).then();
+
+  }
+
+  ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    if (!!this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

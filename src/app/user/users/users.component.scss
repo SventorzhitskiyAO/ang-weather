@@ -1,0 +1,20 @@
+.user {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 25px;
+  margin: 5px 0;
+  transition: all ease .3s;
+
+  &__prop {
+    width: 40%;
+  }
+
+  &:hover {
+    color: #d95fd9;
+  }
+
+  &__title {
+    padding: 25px;
+  }
+}
