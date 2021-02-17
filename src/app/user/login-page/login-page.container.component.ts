@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UsersService} from '../users.service';
+import {UsersService} from '../shared/services/users.service';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 
@@ -8,7 +8,7 @@ import {Subscription} from 'rxjs';
   selector: 'app-login-container',
   template: `<app-login (submitLog)="login($event)"></app-login>`,
 })
-export class LoginContainerComponent implements OnInit, OnDestroy{
+export class LoginPageContainerComponent implements OnInit, OnDestroy{
   id: number;
   private subscription: Subscription;
 
@@ -23,10 +23,9 @@ export class LoginContainerComponent implements OnInit, OnDestroy{
       .pipe(
         map((data) => {
           localStorage.setItem('token',  data.token);
-          this.id = data.user._id;
+          this.router.navigate([`users/`, `${data.user._id}`]);
         })
       ).subscribe();
-    this.router.navigate([`users/${this.id}`]).then();
 
   }
 

@@ -1,22 +1,15 @@
-.active {
-  color: #d95fd9;
-}
-
 .menu {
-  width: 100%;
   display: flex;
   justify-content: space-between;
-  &__link {
-    padding: 15px;
-    font-weight: lighter;
-    transition: all ease .3s;
 
-    &:hover {
-      color: #d95fd9;
+  &__navbar {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    &-link {
+      padding: 0 10px;
     }
-  }
-
-  &__container {
-
   }
 }

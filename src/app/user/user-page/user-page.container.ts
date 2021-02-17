@@ -2,15 +2,15 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {UserInterface} from '../../interfaces/user.interface';
-import {UsersService} from '../users.service';
+import {UserInterface} from '../shared/interfaces/user.interface';
+import {UsersService} from '../shared/services/users.service';
 
 @Component({
   selector: 'app-user-container',
   template: `<app-user *ngIf="user$ | async as user" [user]="user" (submitUpdate)="change($event)" (submitDelete)="delete()"></app-user>`,
 })
 export class UserContainerComponent implements OnInit, OnDestroy{
-  id: number;
+  id: string;
   private subscription: Subscription;
   private deleteSubscription: Subscription;
   user$: Observable<UserInterface>;

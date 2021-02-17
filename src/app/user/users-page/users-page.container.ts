@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {Observable} from 'rxjs';
 
-import {UserInterface} from '../../interfaces/user.interface';
-import {UsersService} from '../users.service';
+import {UserInterface} from '../shared/interfaces/user.interface';
+import {UsersService} from '../shared/services/users.service';
 
 @Component({
   selector: 'app-user-container',

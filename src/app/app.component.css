@@ -1,19 +1,15 @@
-.active {
-  color: #d95fd9;
-}
-
 .menu {
-  width: 100%;
   display: flex;
   justify-content: space-between;
 }
-.menu__link {
-  padding: 15px;
-  font-weight: lighter;
-  transition: all ease 0.3s;
+.menu__navbar {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
-.menu__link:hover {
-  color: #d95fd9;
+.menu__navbar-link {
+  padding: 0 10px;
 }
 
 /*# sourceMappingURL=app.component.css.map */

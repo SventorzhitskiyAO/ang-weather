@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UsersService} from '../users.service';
+import {UsersService} from '../shared/services/users.service';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-create-user',
-  templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.scss']
+  templateUrl: './create-user-page.component.html',
+  styleUrls: ['./create-user-page.component.scss']
 })
-export class CreateUserComponent implements OnInit, OnDestroy{
+export class CreateUserPageComponent implements OnInit, OnDestroy{
   myForm: FormGroup;
   hide = true;
   subscription: Subscription;

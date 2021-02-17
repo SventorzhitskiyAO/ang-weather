@@ -1,21 +1,30 @@
-<div>
-  <mat-toolbar class="menu__container">
-    <h1>Angular App</h1>
-    <nav class="menu">
-      <div>
-        <a class="menu__link" routerLink="/weather" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-          Weather
-        </a>
-        <a class="menu__link" routerLink="/users" routerLinkActive="active">Users</a>
-      </div>
-      <div>
-        <a class="menu__link" routerLink="/users/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-          Log In
-        </a>
-        <a class="menu__link" routerLink="users/create" routerLinkActive="active">Sig Up</a>
-      </div>
-    </nav>
-  </mat-toolbar>
-</div>
+<mat-toolbar class="menu__container">
+  <nav class="menu container">
+    <h1>
+      <a href="/">Angular App</a>
+    </h1>
+    <ul class="menu__navbar">
+      <li routerLinkActive="active">
+        <a [routerLink]="['/', 'weather']" class="menu__navbar-link">Weather</a>
+      </li>
+      <li routerLinkActive="active">
+        <a [routerLink]="['/users']" class="menu__navbar-link">Users</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="!service.isAuthenticated()">
+        <a [routerLink]="['/users', 'create']" class="menu__navbar-link">Sig Up</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="service.isAuthenticated()">
+        <a href="#" class="menu__navbar-link" (click)="logout($event)">
+          Log Out</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="!service.isAuthenticated()">
+        <a [routerLink]="['/users', 'login']" class="menu__navbar-link">
+          Log In</a>
+      </li>
+    </ul>
+  </nav>
+</mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

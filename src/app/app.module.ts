@@ -12,11 +12,10 @@ import { CityComponent } from './city/city.component';
 import {WeatherService} from './weather.service';
 import {CityContainerComponent} from './city/city.container.component';
 import {UserModule} from './user/user.module';
+import {AppRoutingModule} from './app-routing.module';
+import {UsersService} from './user/shared/services/users.service';
 
-const appRoutes: Routes = [
-  { path: 'weather', component: CityContainerComponent, pathMatch: 'full' },
-  { path: 'users', loadChildren: () => import('./user/user.module').then(r => r)},
-];
+
 
 @NgModule({
   declarations: [
@@ -27,15 +26,16 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     HttpClientModule,
+    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatToolbarModule,
-    UserModule,
-    RouterModule.forRoot(appRoutes),
+    // UserModule,
   ],
   providers: [
-    WeatherService
+    WeatherService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })

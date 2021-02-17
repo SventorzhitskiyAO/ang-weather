@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserInterface} from '../../interfaces/user.interface';
+import {UserInterface} from '../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  templateUrl: './user-page.component.html',
+  styleUrls: ['./user-page.component.scss']
 })
-export class UserComponent implements OnInit{
+export class UserPageComponent implements OnInit{
   @Input()
   user: UserInterface;
 
