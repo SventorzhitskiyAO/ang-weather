@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
-import {Observable, Subject, throwError} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {Observable, Subject, Subscription, throwError} from 'rxjs';
+import {catchError, tap} from 'rxjs/operators';
 import {LoginInterface} from '../interfaces/login.interface';
 import {UserChangeInterface} from '../interfaces/user-change.interface';
 import {CreateUserInterface} from '../interfaces/create-user.interface';
+import {UserInterface} from '../interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
   url = 'http://localhost:3000';
+  subscription$: Subscription;
   headers = new HttpHeaders({
     Authorization: `Bearer ${localStorage.getItem('token')}`
   });
@@ -25,15 +27,12 @@ export class UsersService {
     if (response) {
       localStorage.setItem('token', response.token);
     } else {
-      localStorage.clear();
+      localStorage.removeItem('token');
     }
   }
 
-  getUsers(): Observable<any> {
-    return this.http.get(`${this.url}/users`)
-      .pipe(
-        map((response) => response)
-      );
+  getUsers(): Observable<UserInterface[]> {
+    return this.http.get<UserInterface[]>(`${this.url}/users`);
   }
 
   getOneUser(id: string): Observable<any> {
@@ -42,22 +41,17 @@ export class UsersService {
     });
   }
 
-  create(body: CreateUserInterface): Observable<any> {
-    return this.http.post(this.url + '/users-page', body);
+  create(body: CreateUserInterface): Observable<UserInterface> {
+    return this.http.post<UserInterface>(this.url + '/users', body);
   }
 
   delete(id: string): Observable<any> {
-    return this.http.delete(`${this.url}/users/${id}`)
-      .pipe(
-        map(res => res)
-      );
+    this.logOut();
+    return this.http.delete(`${this.url}/users/${id}`);
   }
 
   change(id: string, body: UserChangeInterface): Observable<any> {
-    return this.http.put(`${this.url}/users/${id}`, body)
-      .pipe(
-        map(res => res)
-      );
+    return this.http.put(`${this.url}/users/${id}`, body);
   }
 
   getBoolLogin(l: string): Observable<any> {

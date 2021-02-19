@@ -4,48 +4,7 @@
     <div class="user__prop">Name: {{user?.name}}</div>
     <div class="user__prop">Login: {{user.login}}</div>
     <div class="user__prop">Role: {{user.role}}</div>
-<!--    <div class="user__prop">Password(bcrypt): {{user-page.password}}</div>-->
   </div>
 
-  <h2>Change user</h2>
-  <form [formGroup]="myForm" novalidate (ngSubmit)="submit()" >
-    <div class="form-group">
-      <mat-form-field appearance="legacy">
-        <mat-label>Enter your name</mat-label>
-        <label>
-          <input matInput placeholder="Name" autocomplete="off" class="form-control" name="name" formControlName="name">
-        </label>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="legacy">
-        <mat-label>Enter your login</mat-label>
-        <label>
-          <input matInput placeholder="Login" autocomplete="off" class="form-control" name="login" formControlName="login">
-        </label>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="legacy">
-        <mat-label>Enter your password</mat-label>
-        <label>
-          <input matInput placeholder="Password" autocomplete="off" class="form-control" name="password" formControlName="password">
-        </label>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <mat-form-field appearance="legacy">
-        <mat-label>Password confirm</mat-label>
-        <label>
-          <input matInput placeholder="PasswordConfirm" autocomplete="off" class="form-control" name="passwordConfirm" formControlName="passwordConfirm">
-        </label>
-      </mat-form-field>
-    </div>
-    <div class="form-group">
-      <button mat-button [disabled]="myForm.invalid">To change</button>
-    </div>
-  </form>
-
-  <h2>Delete</h2>
-  <button mat-button [disabled]="myForm.invalid" (click)="subDelete()">Delete</button>
+  <app-user-delete-container></app-user-delete-container>
 </section>

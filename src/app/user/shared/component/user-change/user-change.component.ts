@@ -1,16 +1,13 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {UserInterface} from '../../interfaces/user.interface';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserInterface} from '../shared/interfaces/user.interface';
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user-page.component.html',
-  styleUrls: ['./user-page.component.scss']
+  selector: 'app-user-change',
+  templateUrl: './user-change.component.html',
+  styleUrls: ['./user-change.component.scss']
 })
-export class UserPageComponent implements OnInit{
-  @Input()
-  user: UserInterface;
-
+export class UserChangeComponent implements OnInit {
   @Output()
   submitUpdate: EventEmitter<UserInterface> = new EventEmitter<UserInterface>();
 
@@ -28,4 +25,5 @@ export class UserPageComponent implements OnInit{
   submit(): void{
     this.submitUpdate.emit(this.myForm.value);
   }
+
 }

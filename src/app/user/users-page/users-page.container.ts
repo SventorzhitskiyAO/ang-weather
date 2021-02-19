@@ -1,18 +1,23 @@
-import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
 
-import {UserInterface} from '../shared/interfaces/user.interface';
-import {UsersService} from '../shared/services/users.service';
+import { Store} from '@ngrx/store';
+import {AppState} from '../../store/state/app.state';
+import {selectUserList} from '../../store/selectors/user.selectors';
+import {GetUsers} from '../../store/actions/user.action';
 
 @Component({
   selector: 'app-user-container',
   template: `<app-users [users]="users$ | async"></app-users>`,
 })
-export class UsersContainerComponent {
+export class UsersContainerComponent implements OnInit{
+  users$ = this.store.select(selectUserList);
 
-  constructor(private usersService: UsersService) {
+  constructor(
+    private store: Store<AppState>
+  ) {}
+
+  ngOnInit(): void {
+    this.store.dispatch(new GetUsers());
   }
-
-  users$: Observable<UserInterface[]> = this.usersService.getUsers();
 }
 

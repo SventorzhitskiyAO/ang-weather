@@ -3,7 +3,8 @@ import {Routes, RouterModule} from '@angular/router';
 import {LoginPageContainerComponent} from './login-page/login-page.container.component';
 import {UsersContainerComponent} from './users-page/users-page.container';
 import {CreateUserPageComponent} from './create-user-page/create-user-page.component';
-import {UserContainerComponent} from './user-page/user-page.container';
+import {UserContainerComponent} from './user-page/user-page.container.component';
+import {AuthGuard} from './shared/services/auth.guard';
 
 const UserRoutes: Routes = [
   {
@@ -24,6 +25,7 @@ const UserRoutes: Routes = [
     path: ':id',
     component: UserContainerComponent,
     pathMatch: 'full',
+    canActivate: [AuthGuard]
   },
 ];
 

@@ -3,6 +3,10 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../shared/services/users.service';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/state/app.state';
+import {CreateUser} from '../../store/actions/user.action';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -13,7 +17,12 @@ export class CreateUserPageComponent implements OnInit, OnDestroy{
   myForm: FormGroup;
   hide = true;
   subscription: Subscription;
-  constructor(private usersService: UsersService) {}
+
+  constructor(
+    private usersService: UsersService,
+    private store: Store<AppState>,
+    private router: Router
+    ) {}
 
   ngOnInit(): void {
     this.myForm = new FormGroup({
@@ -43,8 +52,8 @@ export class CreateUserPageComponent implements OnInit, OnDestroy{
   }
 
   submit(): void{
-    this.subscription = this.usersService.create(this.myForm.value).subscribe();
-    return alert('User registered');
+    this.store.dispatch(new CreateUser(this.myForm.value));
+    this.router.navigate(['/users', 'login']);
   }
 
   loginValidator = (control: FormControl) => {

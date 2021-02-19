@@ -1,29 +1,33 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subscription} from 'rxjs';
+import { Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 
-import {UserInterface} from '../shared/interfaces/user.interface';
 import {UsersService} from '../shared/services/users.service';
+import {AppState} from '../../store/state/app.state';
+import {Store} from '@ngrx/store';
+import {GetUser} from '../../store/actions/user.action';
+import {selectSelectedUser} from '../../store/selectors/user.selectors';
 
 @Component({
   selector: 'app-user-container',
-  template: `<app-user *ngIf="user$ | async as user" [user]="user" (submitUpdate)="change($event)" (submitDelete)="delete()"></app-user>`,
+  template: `<app-user *ngIf="user$ | async as user" [user]="user" (submitUpdate)="change($event)"></app-user>`,
 })
 export class UserContainerComponent implements OnInit, OnDestroy{
   id: string;
   private subscription: Subscription;
   private deleteSubscription: Subscription;
-  user$: Observable<UserInterface>;
+  user$ = this.store.select(selectSelectedUser);
 
   constructor(
     private usersService: UsersService,
     private activateRoute: ActivatedRoute,
-    private route: ActivatedRoute, private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   ngOnInit(): void {
     this.subscription = this.activateRoute.params.subscribe(params => this.id = params.id);
-    this.user$ = this.usersService.getOneUser(this.id);
+    this.store.dispatch(new GetUser(this.id));
   }
 
   change(body): void{
@@ -34,11 +38,6 @@ export class UserContainerComponent implements OnInit, OnDestroy{
       }
     }
     this.user$ = this.usersService.change(this.id, body);
-  }
-
-  delete(): void {
-    this.usersService.delete(this.id).subscribe();
-    this.router.navigate(['']).then(r => r);
   }
 
   ngOnDestroy(): void {

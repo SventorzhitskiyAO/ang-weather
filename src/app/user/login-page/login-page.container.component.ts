@@ -1,8 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UsersService} from '../shared/services/users.service';
-import {map} from 'rxjs/operators';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../store/state/app.state';
+import {Login} from '../../store/actions/user.action';
+import {selectSelectedUser} from '../../store/selectors/user.selectors';
+import {UserInterface} from '../shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-login-container',
@@ -14,19 +19,21 @@ export class LoginPageContainerComponent implements OnInit, OnDestroy{
 
   constructor(
     private usersService: UsersService,
-    private activateRoute: ActivatedRoute,
-    private route: ActivatedRoute, private router: Router
+    private router: Router,
+    private store: Store<AppState>
   ) {}
 
   login(body): void{
-    this.subscription = this.usersService.login(body)
+    this.store.dispatch(new Login(body));
+    this.subscription = this.store.select(selectSelectedUser)
       .pipe(
-        map((data) => {
-          localStorage.setItem('token',  data.token);
-          this.router.navigate([`users/`, `${data.user._id}`]);
+        map((data: UserInterface) => {
+          if (data !== null){
+            this.router.navigate([`users/`, `${data._id}`]);
+          }
         })
-      ).subscribe();
-
+      )
+      .subscribe();
   }
 
   ngOnInit(): void {
