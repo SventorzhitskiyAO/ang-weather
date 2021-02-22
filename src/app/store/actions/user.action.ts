@@ -61,7 +61,7 @@ export class GetUserLogin implements Action {
 export class GetUserLoginSuccess implements Action {
   public readonly type = UserActions.GetUserLoginSuccess;
 
-  constructor(public payload: string) {}
+  constructor(public payload: UserInterface) {}
 }
 
 export class ChangeUser implements Action {

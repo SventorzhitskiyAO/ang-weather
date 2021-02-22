@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate{
     if (this.service.isAuthenticated()){
       return true;
     } else {
-      this.service.logOut();
+      UsersService.logOut();
       this.router.navigate(['/users', 'login'], {
         queryParams: {
           loginAgain: true

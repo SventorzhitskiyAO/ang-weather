@@ -20,4 +20,3 @@ export class UsersContainerComponent implements OnInit{
     this.store.dispatch(new GetUsers());
   }
 }
-

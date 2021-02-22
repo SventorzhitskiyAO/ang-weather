@@ -5,7 +5,7 @@ import {UsersService} from '../../user/shared/services/users.service';
 import {
   ChangeUser,
   CreateUser, DeleteUser, DeleteUserSuccess,
-  GetUser, GetUserLogin,
+  GetUser, GetUserLogin, GetUserLoginSuccess,
   GetUsers,
   GetUsersSuccess,
   GetUserSuccess,
@@ -59,8 +59,7 @@ export class UserEffects {
       ofType(UserActions.GetUserLogin),
       switchMap((action: GetUserLogin) => this.userServices.getBoolLogin(action.payload)),
       map((user: UserInterface) => {
-        console.log(user.login);
-        return new GetUserLogin(user.login);
+          return new GetUserLoginSuccess(user);
       })
     );
   });

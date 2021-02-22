@@ -9,9 +9,6 @@ import {UserInterface} from '../interfaces/user.interface';
 
 @Injectable()
 export class UsersService {
-  url = 'http://localhost:3000';
-  subscription$: Subscription;
-  public errors$: Subject<string> = new Subject<string>();
 
   constructor(private http: HttpClient) {
   }
@@ -19,6 +16,9 @@ export class UsersService {
   get token(): string {
     return localStorage.getItem('token');
   }
+  url = 'http://localhost:3000';
+  subscription$: Subscription;
+  public errors$: Subject<string> = new Subject<string>();
 
   private static setToken(response): void {
     if (response) {
@@ -26,6 +26,10 @@ export class UsersService {
     } else {
       localStorage.removeItem('token');
     }
+  }
+
+  static logOut(): void {
+    UsersService.setToken(null);
   }
 
   getUsers(): Observable<UserInterface[]> {
@@ -41,7 +45,7 @@ export class UsersService {
   }
 
   delete(id: string): Observable<any> {
-    this.logOut();
+    UsersService.logOut();
     return this.http.delete(`${this.url}/users/${id}`);
   }
 
@@ -81,9 +85,5 @@ export class UsersService {
 
   isAuthenticated(): boolean {
     return !!this.token;
-  }
-
-  logOut(): void {
-    UsersService.setToken(null);
   }
 }

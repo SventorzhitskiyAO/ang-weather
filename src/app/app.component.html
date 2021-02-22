@@ -14,7 +14,7 @@
         <a [routerLink]="['/users', 'create']" class="menu__navbar-link">Sig Up</a>
       </li>
       <li routerLinkActive="active" *ngIf="service.isAuthenticated()">
-        <a href="#" class="menu__navbar-link" (click)="logout($event)">
+        <a href="#" class="menu__navbar-link" (click)="logout()">
           Log Out</a>
       </li>
       <li routerLinkActive="active" *ngIf="!service.isAuthenticated()">

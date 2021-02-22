@@ -1,6 +1,5 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {UsersService} from '../shared/services/users.service';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
@@ -14,15 +13,20 @@ import {UserInterface} from '../shared/interfaces/user.interface';
   template: `
     <app-login (submitLog)="login($event)"></app-login>`,
 })
-export class LoginPageContainerComponent implements OnDestroy {
+export class LoginPageContainerComponent implements OnInit, OnDestroy {
   id: number;
   private subscription: Subscription;
 
   constructor(
-    private usersService: UsersService,
     private router: Router,
     private store: Store<AppState>
   ) {}
+
+  ngOnInit(): void {
+    if (localStorage.getItem('token')){
+      return; // если есть токен то на страницу пользователя, нету - на страницу логина(ничего не происходит) как это реализовать на сервере?
+    }
+  }
 
   login(body): void {
     this.store.dispatch(new Login(body));

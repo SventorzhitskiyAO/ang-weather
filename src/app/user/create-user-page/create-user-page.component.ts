@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {UsersService} from '../shared/services/users.service';
-import {map} from 'rxjs/operators';
-import {Subscription} from 'rxjs';
+import {filter, map, take, takeUntil} from 'rxjs/operators';
+import {Observable, Subject, Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/state/app.state';
 import {CreateUser, GetUserLogin} from '../../store/actions/user.action';
@@ -18,6 +18,7 @@ export class CreateUserPageComponent implements OnInit, OnDestroy{
   myForm: FormGroup;
   hide = true;
   subscription: Subscription;
+  unsubscribe: Subject<void> = new Subject();
 
   constructor(
     private usersService: UsersService,
@@ -50,6 +51,14 @@ export class CreateUserPageComponent implements OnInit, OnDestroy{
     },
       this.passwordMatchValidator
     );
+
+    this.myForm.get('login').valueChanges
+      .pipe(
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe(value => {
+      console.log(this.myForm);
+    });
   }
 
   submit(): void{
@@ -57,24 +66,16 @@ export class CreateUserPageComponent implements OnInit, OnDestroy{
     this.router.navigate(['/users', 'login']);
   }
 
-  loginValidator = (control: FormControl) => {
+  loginValidator = (control: FormControl): Observable<ValidationErrors> => {
     this.store.dispatch(new GetUserLogin(control.value));
-    return this.store.select(selectLoginName)
-      .pipe(
-        map(response => {
-          if (!!response) {
-            return { login: true };
-          }
-        })
-      );
-    // return  this.usersService.getBoolLogin(control.value)
-    // .pipe(
-    //   map(response => {
-    //     if (!!response) {
-    //       return { login: true };
-    //     }
-    //   })
-    // );
+    return this.store.select(selectLoginName).pipe(
+      filter(value => !!value),
+      take(1),
+      map(res => {
+        console.log(res);
+        return {login: true};
+      })
+    );
   }
 
    passwordMatchValidator(control: FormGroup): {[s: string]: boolean} {
@@ -87,5 +88,8 @@ export class CreateUserPageComponent implements OnInit, OnDestroy{
     if (!!this.subscription) {
       this.subscription.unsubscribe();
     }
+
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 }

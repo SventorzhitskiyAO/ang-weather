@@ -1,6 +1,6 @@
 <section>
   <h2 class="user__title">All Users</h2>
-  <a *ngFor="let user of users" class="user" [routerLink]="user._id">
+  <a *ngFor="let user of users" class="user" [routerLink]="['/users', user._id]">
     <span class="user__prop">Name: {{user.name}}</span>
     <span class="user__prop">Login: {{user.login}}</span>
     <span class="user__prop">Role: {{user.role}}</span>
