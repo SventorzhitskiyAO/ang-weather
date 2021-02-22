@@ -10,7 +10,6 @@ export class AppComponent {
   constructor(public service: UsersService) {
   }
 
-
   logout(event: Event): void {
     this.service.logOut();
   }

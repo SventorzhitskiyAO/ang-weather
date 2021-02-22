@@ -5,8 +5,9 @@ import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/state/app.state';
-import {CreateUser} from '../../store/actions/user.action';
+import {CreateUser, GetUserLogin} from '../../store/actions/user.action';
 import {Router} from '@angular/router';
+import {selectLoginName} from '../../store/selectors/user.selectors';
 
 @Component({
   selector: 'app-create-user',
@@ -57,13 +58,23 @@ export class CreateUserPageComponent implements OnInit, OnDestroy{
   }
 
   loginValidator = (control: FormControl) => {
-    return  this.usersService.getBoolLogin(control.value).pipe(
-      map(response => {
-        if (!!response) {
-          return { login: true };
-        }
-      })
-    );
+    this.store.dispatch(new GetUserLogin(control.value));
+    return this.store.select(selectLoginName)
+      .pipe(
+        map(response => {
+          if (!!response) {
+            return { login: true };
+          }
+        })
+      );
+    // return  this.usersService.getBoolLogin(control.value)
+    // .pipe(
+    //   map(response => {
+    //     if (!!response) {
+    //       return { login: true };
+    //     }
+    //   })
+    // );
   }
 
    passwordMatchValidator(control: FormGroup): {[s: string]: boolean} {

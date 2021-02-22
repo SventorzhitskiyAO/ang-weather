@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, Subject, Subscription, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {LoginInterface} from '../interfaces/login.interface';
@@ -11,9 +11,6 @@ import {UserInterface} from '../interfaces/user.interface';
 export class UsersService {
   url = 'http://localhost:3000';
   subscription$: Subscription;
-  headers = new HttpHeaders({
-    Authorization: `Bearer ${localStorage.getItem('token')}`
-  });
   public errors$: Subject<string> = new Subject<string>();
 
   constructor(private http: HttpClient) {
@@ -36,9 +33,7 @@ export class UsersService {
   }
 
   getOneUser(id: string): Observable<any> {
-    return this.http.get(`${this.url}/users/${id}`, {
-      headers: this.headers
-    });
+    return this.http.get(`${this.url}/users/${id}`);
   }
 
   create(body: CreateUserInterface): Observable<UserInterface> {
@@ -50,8 +45,8 @@ export class UsersService {
     return this.http.delete(`${this.url}/users/${id}`);
   }
 
-  change(id: string, body: UserChangeInterface): Observable<any> {
-    return this.http.put(`${this.url}/users/${id}`, body);
+  change(body: UserChangeInterface): Observable<any> {
+    return this.http.put(`${this.url}/users/${body.id}`, body);
   }
 
   getBoolLogin(l: string): Observable<any> {
@@ -66,7 +61,7 @@ export class UsersService {
       );
   }
 
-  private handleError(error: HttpErrorResponse): Observable<never> { // отправить и обработать в HTML
+  private handleError(error: HttpErrorResponse): Observable<never> {
     const {message} = error.error.error;
 
     switch (message) {

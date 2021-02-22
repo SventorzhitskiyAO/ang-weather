@@ -8,7 +8,7 @@
         <a [routerLink]="['/', 'weather']" class="menu__navbar-link">Weather</a>
       </li>
       <li routerLinkActive="active">
-        <a [routerLink]="['/users']" class="menu__navbar-link">Users</a>
+        <a [routerLink]="['/users', 'list']" class="menu__navbar-link">Users</a>
       </li>
       <li routerLinkActive="active" *ngIf="!service.isAuthenticated()">
         <a [routerLink]="['/users', 'create']" class="menu__navbar-link">Sig Up</a>

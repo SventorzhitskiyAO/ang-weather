@@ -1,7 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
-import {UsersService} from '../../services/users.service';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../store/state/app.state';
+import {DeleteUser} from '../../../../store/actions/user.action';
 
 @Component({
   selector: 'app-user-delete-container',
@@ -13,9 +15,9 @@ export class UserDeleteContainerComponent implements OnInit, OnDestroy{
   private deleteSubscription: Subscription;
 
   constructor(
-    private usersService: UsersService,
     private activateRoute: ActivatedRoute,
     private router: Router,
+    private store: Store<AppState>,
   ) {}
 
   ngOnInit(): void {
@@ -24,7 +26,7 @@ export class UserDeleteContainerComponent implements OnInit, OnDestroy{
   }
 
   delete(): void {
-    this.deleteSubscription = this.usersService.delete(this.id).subscribe();
+    this.store.dispatch(new DeleteUser(this.id));
     this.router.navigate(['/users', 'login']);
   }
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserInterface} from '../../interfaces/user.interface';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 
@@ -10,6 +10,9 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 export class UserChangeComponent implements OnInit {
   @Output()
   submitUpdate: EventEmitter<UserInterface> = new EventEmitter<UserInterface>();
+
+  @Input()
+  user: UserInterface;
 
   myForm: FormGroup;
 

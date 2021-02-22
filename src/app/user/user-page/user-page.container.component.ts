@@ -10,7 +10,7 @@ import {selectSelectedUser} from '../../store/selectors/user.selectors';
 
 @Component({
   selector: 'app-user-container',
-  template: `<app-user *ngIf="user$ | async as user" [user]="user" (submitUpdate)="change($event)"></app-user>`,
+  template: `<app-user *ngIf="user$ | async as user" [user]="user"></app-user>`,
 })
 export class UserContainerComponent implements OnInit, OnDestroy{
   id: string;
@@ -28,16 +28,6 @@ export class UserContainerComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     this.subscription = this.activateRoute.params.subscribe(params => this.id = params.id);
     this.store.dispatch(new GetUser(this.id));
-  }
-
-  change(body): void{
-    let key: string;
-    for (key in body) {
-      if (!body[key]) {
-        delete body[key];
-      }
-    }
-    this.user$ = this.usersService.change(this.id, body);
   }
 
   ngOnDestroy(): void {

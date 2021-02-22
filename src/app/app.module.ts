@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -20,6 +20,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import {appReducer} from './store/reducers/app.reducer';
 import {UserEffects} from './store/effects/user.effects';
 import {ConfigEffects} from './store/effects/config.effects';
+import {TokenInterceptor} from './shared/auth.interseptor';
 
 @NgModule({
   declarations: [
@@ -36,13 +37,19 @@ import {ConfigEffects} from './store/effects/config.effects';
     BrowserAnimationsModule,
     MatToolbarModule,
     StoreModule.forRoot(appReducer),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({ logOnly: environment.production }),
     EffectsModule.forRoot([UserEffects, ConfigEffects]),
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
   ],
   providers: [
     WeatherService,
-    UsersService
+    UsersService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: TokenInterceptor
+
+    }
   ],
   bootstrap: [AppComponent]
 })

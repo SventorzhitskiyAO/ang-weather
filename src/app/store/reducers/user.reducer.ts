@@ -1,5 +1,5 @@
 import {initialUserState, UserState} from '../state/user.state';
-import {CreateUser, TUserActions, UserActions} from '../actions/user.action';
+import {TUserActions, UserActions} from '../actions/user.action';
 
 export const userReducer = (state = initialUserState, action: TUserActions): UserState => {
   switch (action.type) {
@@ -17,6 +17,16 @@ export const userReducer = (state = initialUserState, action: TUserActions): Use
       return {
         ...state,
         selectedUser: action.payload
+      };
+    case UserActions.DeleteUserSuccess:
+      return {
+        ...state,
+        selectedUser: null
+      };
+    case UserActions.GetUserLoginSuccess:
+      return {
+        ...state,
+        userLoginName: action.payload
       };
     default:
       return state;

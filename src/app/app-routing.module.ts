@@ -4,16 +4,18 @@ import {CityContainerComponent} from './city/city.container.component';
 
 
 const routes: Routes = [
-      {path: 'users', loadChildren: () => import('./user/user.module').then(r =>  r.UserModule)},
-      {path: 'weather', component: CityContainerComponent}
+  {path: '', redirectTo: 'users', pathMatch: 'full'},
+  {path: 'users', loadChildren: () => import('./user/user.module').then(r => r.UserModule)},
+  {path: 'weather', component: CityContainerComponent}
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      preloadingStrategy: PreloadAllModules
-    }
-  )],
+        preloadingStrategy: PreloadAllModules
+      }
+    )],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}

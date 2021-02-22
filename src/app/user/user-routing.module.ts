@@ -4,15 +4,20 @@ import {LoginPageContainerComponent} from './login-page/login-page.container.com
 import {UsersContainerComponent} from './users-page/users-page.container';
 import {CreateUserPageComponent} from './create-user-page/create-user-page.component';
 import {UserContainerComponent} from './user-page/user-page.container.component';
-import {AuthGuard} from './shared/services/auth.guard';
+import {AuthGuard} from '../shared/guards/auth.guard';
 
 const UserRoutes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
   {
     path: 'login',
     component: LoginPageContainerComponent,
   },
   {
-    path: '',
+    path: 'list',
     component: UsersContainerComponent,
     pathMatch: 'full'
   },

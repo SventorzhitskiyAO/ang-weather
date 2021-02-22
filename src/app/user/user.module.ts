@@ -15,10 +15,11 @@ import {LoginPageContainerComponent} from './login-page/login-page.container.com
 import {CreateUserPageComponent} from './create-user-page/create-user-page.component';
 import {UsersService} from './shared/services/users.service';
 import {UserRoutingModule} from './user-routing.module';
-import {AuthGuard} from './shared/services/auth.guard';
+import {AuthGuard} from '../shared/guards/auth.guard';
 import { UserDeleteComponent } from './shared/component/user-delete/user-delete.component';
 import { UserChangeComponent } from './shared/component/user-change/user-change.component';
 import {UserDeleteContainerComponent} from './shared/component/user-delete/user-delete.container.component';
+import {UserChangeContainerComponent} from './shared/component/user-change/user-change.container.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {UserDeleteContainerComponent} from './shared/component/user-delete/user-
     CreateUserPageComponent,
     UserDeleteComponent,
     UserChangeComponent,
-    UserDeleteContainerComponent
+    UserDeleteContainerComponent,
+    UserChangeContainerComponent
   ],
   imports: [
     CommonModule,
