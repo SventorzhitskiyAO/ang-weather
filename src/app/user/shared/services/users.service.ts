@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable, Subject, Subscription, throwError} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
@@ -13,9 +13,10 @@ export class UsersService {
   constructor(private http: HttpClient) {
   }
 
-  get token(): string {
+  static get token(): string {
     return localStorage.getItem('token');
   }
+
   url = 'http://localhost:3000';
   subscription$: Subscription;
   public errors$: Subject<string> = new Subject<string>();
@@ -32,6 +33,10 @@ export class UsersService {
     UsersService.setToken(null);
   }
 
+  static isAuthenticated(): boolean {
+    return !!this.token;
+  }
+
   getUsers(): Observable<UserInterface[]> {
     return this.http.get<UserInterface[]>(`${this.url}/users`);
   }
@@ -45,7 +50,6 @@ export class UsersService {
   }
 
   delete(id: string): Observable<any> {
-    UsersService.logOut();
     return this.http.delete(`${this.url}/users/${id}`);
   }
 
@@ -58,7 +62,7 @@ export class UsersService {
   }
 
   login(body: LoginInterface): Observable<any> {
-    return this.http.post(`${this.url}/users/login`, body)
+    return this.http.post(`${this.url}/auth/login`, body)
       .pipe(
         tap(UsersService.setToken),
         catchError(this.handleError.bind(this))
@@ -67,6 +71,7 @@ export class UsersService {
 
   private handleError(error: HttpErrorResponse): Observable<never> {
     const {message} = error.error.error;
+    console.log(message);
 
     switch (message) {
       case 'EMAIL_NOT_FOUND':
@@ -83,7 +88,7 @@ export class UsersService {
     return throwError(error);
   }
 
-  isAuthenticated(): boolean {
-    return !!this.token;
+  getUserByToken(): Observable<UserInterface> {
+    return this.http.get<UserInterface>(`${this.url}/auth`);
   }
 }

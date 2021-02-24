@@ -5,14 +5,12 @@ import {Observable} from 'rxjs';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor{
-  constructor(private service: UsersService) {
-  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-    if (this.service.isAuthenticated()) {
+    if (UsersService.isAuthenticated()) {
       req = req.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.service.token}`
+          Authorization: `Bearer ${UsersService.token}`
         }
       });
     }

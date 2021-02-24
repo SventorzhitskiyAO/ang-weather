@@ -7,7 +7,7 @@ import {UsersService} from './user/shared/services/users.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public service: UsersService) {}
+  UsersService =  UsersService;
 
   logout(): void {
     UsersService.logOut();

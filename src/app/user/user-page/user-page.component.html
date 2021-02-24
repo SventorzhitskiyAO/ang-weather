@@ -5,6 +5,9 @@
     <div class="user__prop">Login: {{user.login}}</div>
     <div class="user__prop">Role: {{user.role}}</div>
   </div>
-  <app-user-change-container></app-user-change-container>
-  <app-user-delete-container></app-user-delete-container>
+
+  <ng-container *ngIf="me && me._id == user._id">
+    <app-user-change-container></app-user-change-container>
+    <app-user-delete-container></app-user-delete-container>
+  </ng-container>
 </section>

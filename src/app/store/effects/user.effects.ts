@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {map, switchMap} from 'rxjs/operators';
+import {debounceTime, map, switchMap, tap} from 'rxjs/operators';
 import {UsersService} from '../../user/shared/services/users.service';
 import {
   ChangeUser,
@@ -50,7 +50,8 @@ export class UserEffects {
     return this.actions$.pipe(
       ofType(UserActions.Login),
       switchMap((action: Login) => this.userServices.login(action.payload)),
-      map((obj) => new GetUserSuccess(obj.user))
+      map((user) => new GetUserLoginSuccess(user.user)),
+      // map((user) => new GetUserSuccess(user.user))
     );
   });
 
@@ -59,7 +60,7 @@ export class UserEffects {
       ofType(UserActions.GetUserLogin),
       switchMap((action: GetUserLogin) => this.userServices.getBoolLogin(action.payload)),
       map((user: UserInterface) => {
-          return new GetUserLoginSuccess(user);
+        return new GetUserLoginSuccess(user);
       })
     );
   });
@@ -76,7 +77,15 @@ export class UserEffects {
     return this.actions$.pipe(
       ofType<DeleteUser>(UserActions.DeleteUser),
       switchMap((action: DeleteUser) => this.userServices.delete(action.payload)),
-      map((res: UserInterface) => new DeleteUserSuccess())
+      map(() => new DeleteUserSuccess())
+    );
+  });
+
+  isAuth$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.isAuth),
+      switchMap(() => this.userServices.getUserByToken()),
+      map((user: UserInterface) => new GetUserLoginSuccess(user)),
     );
   });
 }

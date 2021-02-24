@@ -10,13 +10,12 @@ import {of} from 'rxjs';
 export class ConfigEffects {
   constructor(
     private actions$: Actions,
-    private configService: UsersService
   ) {}
 
   getConfig$ = createEffect(() => {
     return this.actions$.pipe(
       ofType<GetConfig>(ConfigActions.GetConfig),
-      switchMap(() => this.configService.token),
+      switchMap(() => UsersService.token),
       // @ts-ignore
       switchMap((config: ConfigUserInterface) => {
         return of(new GetConfigSuccess(config));

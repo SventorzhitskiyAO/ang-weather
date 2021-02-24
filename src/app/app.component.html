@@ -10,14 +10,14 @@
       <li routerLinkActive="active">
         <a [routerLink]="['/users', 'list']" class="menu__navbar-link">Users</a>
       </li>
-      <li routerLinkActive="active" *ngIf="!service.isAuthenticated()">
+      <li routerLinkActive="active" *ngIf="!UsersService.isAuthenticated()">
         <a [routerLink]="['/users', 'create']" class="menu__navbar-link">Sig Up</a>
       </li>
-      <li routerLinkActive="active" *ngIf="service.isAuthenticated()">
+      <li routerLinkActive="active" *ngIf="UsersService.isAuthenticated()">
         <a href="#" class="menu__navbar-link" (click)="logout()">
           Log Out</a>
       </li>
-      <li routerLinkActive="active" *ngIf="!service.isAuthenticated()">
+      <li routerLinkActive="active" *ngIf="!UsersService.isAuthenticated()">
         <a [routerLink]="['/users', 'login']" class="menu__navbar-link">
           Log In</a>
       </li>

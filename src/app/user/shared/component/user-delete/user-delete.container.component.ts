@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../../../store/state/app.state';
 import {DeleteUser} from '../../../../store/actions/user.action';
+import {UsersService} from '../../services/users.service';
 
 @Component({
   selector: 'app-user-delete-container',
@@ -27,6 +28,7 @@ export class UserDeleteContainerComponent implements OnInit, OnDestroy{
 
   delete(): void {
     this.store.dispatch(new DeleteUser(this.id));
+    UsersService.logOut();
     this.router.navigate(['/users', 'login']);
   }
 

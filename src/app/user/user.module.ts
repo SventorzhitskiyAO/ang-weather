@@ -16,6 +16,7 @@ import {CreateUserPageComponent} from './create-user-page/create-user-page.compo
 import {UsersService} from './shared/services/users.service';
 import {UserRoutingModule} from './user-routing.module';
 import {AuthGuard} from '../shared/guards/auth.guard';
+import {IsAuthGuard} from '../shared/guards/isAurhLogin.guard';
 import { UserDeleteComponent } from './shared/component/user-delete/user-delete.component';
 import { UserChangeComponent } from './shared/component/user-change/user-change.component';
 import {UserDeleteContainerComponent} from './shared/component/user-delete/user-delete.container.component';
@@ -47,7 +48,8 @@ import {UserChangeContainerComponent} from './shared/component/user-change/user-
   ],
   providers: [
     UsersService,
-    AuthGuard
+    AuthGuard,
+    IsAuthGuard
   ]
 })
 export class UserModule { }

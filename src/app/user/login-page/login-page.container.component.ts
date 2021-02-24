@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/state/app.state';
 import {Login} from '../../store/actions/user.action';
-import {selectSelectedUser} from '../../store/selectors/user.selectors';
+import {authMe} from '../../store/selectors/user.selectors';
 import {UserInterface} from '../shared/interfaces/user.interface';
 
 @Component({
@@ -13,7 +13,7 @@ import {UserInterface} from '../shared/interfaces/user.interface';
   template: `
     <app-login (submitLog)="login($event)"></app-login>`,
 })
-export class LoginPageContainerComponent implements OnInit, OnDestroy {
+export class LoginPageContainerComponent implements OnDestroy {
   id: number;
   private subscription: Subscription;
 
@@ -22,15 +22,9 @@ export class LoginPageContainerComponent implements OnInit, OnDestroy {
     private store: Store<AppState>
   ) {}
 
-  ngOnInit(): void {
-    if (localStorage.getItem('token')){
-      return; // если есть токен то на страницу пользователя, нету - на страницу логина(ничего не происходит) как это реализовать на сервере?
-    }
-  }
-
   login(body): void {
     this.store.dispatch(new Login(body));
-    this.subscription = this.store.select(selectSelectedUser)
+    this.subscription = this.store.select(authMe)
       .pipe(
         map((data: UserInterface) => {
           if (data !== null) {

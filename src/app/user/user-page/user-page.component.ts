@@ -11,6 +11,9 @@ export class UserPageComponent implements OnInit{
   @Input()
   user: UserInterface;
 
+  @Input()
+  me: UserInterface;
+
   @Output()
   submitUpdate: EventEmitter<UserInterface> = new EventEmitter<UserInterface>();
 

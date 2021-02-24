@@ -13,8 +13,8 @@ export const selectSelectedUser = createSelector(
   state => state.selectedUser
 );
 
-export const selectLoginName = createSelector(
+export const authMe = createSelector(
   users,
-  state => state.userLoginName
+  state => state.me
 );
 

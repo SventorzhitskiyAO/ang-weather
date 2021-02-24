@@ -15,7 +15,8 @@ export enum UserActions {
   GetUserLoginSuccess = '[Users] GET_USER_LOGIN_SUCCESS',
   ChangeUser = '[Users] CHANGE_USER',
   DeleteUser = '[Users] DELETE_USER',
-  DeleteUserSuccess = '[Users] DELETE_USER_SUCCESS'
+  DeleteUserSuccess = '[Users] DELETE_USER_SUCCESS',
+  isAuth = '[User] IS_AUTH'
 }
 
 export class GetUsers implements Action {
@@ -36,6 +37,7 @@ export class GetUser implements Action {
 
 export class GetUserSuccess implements Action {
   public readonly type = UserActions.GetUserSuccess;
+  user: UserInterface;
 
   constructor(public  payload: UserInterface) {}
 }
@@ -81,5 +83,9 @@ export class DeleteUserSuccess implements Action {
   public readonly type = UserActions.DeleteUserSuccess;
 }
 
-// tslint:disable-next-line:max-line-length
-export type TUserActions = GetUser | GetUsers | GetUsersSuccess | GetUserSuccess | CreateUser | Login | GetUserLogin | GetUserLoginSuccess | ChangeUser | DeleteUser | DeleteUserSuccess;
+export class IsAuth implements Action {
+  public readonly type = UserActions.isAuth;
+}
+
+export type TUserActions = (GetUser | GetUsers | GetUsersSuccess | GetUserSuccess | CreateUser | Login | GetUserLogin |
+  GetUserLoginSuccess | ChangeUser | DeleteUser | DeleteUserSuccess | IsAuth);

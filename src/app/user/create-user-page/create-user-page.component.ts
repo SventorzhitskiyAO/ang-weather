@@ -7,7 +7,7 @@ import {Store} from '@ngrx/store';
 import {AppState} from '../../store/state/app.state';
 import {CreateUser, GetUserLogin} from '../../store/actions/user.action';
 import {Router} from '@angular/router';
-import {selectLoginName} from '../../store/selectors/user.selectors';
+import {authMe} from '../../store/selectors/user.selectors';
 
 @Component({
   selector: 'app-create-user',
@@ -68,7 +68,7 @@ export class CreateUserPageComponent implements OnInit, OnDestroy{
 
   loginValidator = (control: FormControl): Observable<ValidationErrors> => {
     this.store.dispatch(new GetUserLogin(control.value));
-    return this.store.select(selectLoginName).pipe(
+    return this.store.select(authMe).pipe(
       filter(value => !!value),
       take(1),
       map(res => {

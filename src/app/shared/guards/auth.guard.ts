@@ -6,7 +6,6 @@ import {UsersService} from '../../user/shared/services/users.service';
 @Injectable()
 export class AuthGuard implements CanActivate{
   constructor(
-    private service: UsersService,
     private router: Router
   ) {}
 
@@ -14,7 +13,7 @@ export class AuthGuard implements CanActivate{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean  {
-    if (this.service.isAuthenticated()){
+    if (UsersService.isAuthenticated()){
       return true;
     } else {
       UsersService.logOut();
@@ -25,5 +24,4 @@ export class AuthGuard implements CanActivate{
       });
     }
   }
-
 }

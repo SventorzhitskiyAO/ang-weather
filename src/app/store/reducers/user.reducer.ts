@@ -26,7 +26,7 @@ export const userReducer = (state = initialUserState, action: TUserActions): Use
     case UserActions.GetUserLoginSuccess:
       return {
         ...state,
-        userLoginName: action.payload
+        me: action.payload
       };
     default:
       return state;
